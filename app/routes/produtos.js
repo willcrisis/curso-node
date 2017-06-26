@@ -2,8 +2,8 @@ module.exports = function (app) {
     app.get('/produtos', function (req, res) {
         var conn = app.infra.connectionFactory();
 
-        var produtosBanco = app.infra.produtosBanco;
-        produtosBanco.lista(conn, function (err, result) {
+        var produtosBanco = app.infra.produtosBanco(conn);
+        produtosBanco.lista(function (err, result) {
             if (err) {
                 console.log(err);
             }
@@ -11,9 +11,5 @@ module.exports = function (app) {
         });
 
         conn.end();
-    });
-
-    app.get('/produtos/remove', function (req, res) {
-
     });
 };
