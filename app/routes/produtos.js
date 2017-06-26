@@ -12,4 +12,8 @@ module.exports = function (app) {
 
         conn.end();
     });
+
+    app.get('/produtos/novo', function(req, res) {
+        res.render('produtos/form');
+    });
 };
