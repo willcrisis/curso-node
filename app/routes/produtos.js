@@ -26,7 +26,7 @@ module.exports = function (app) {
             if (err) {
                 console.log(err);
             }
-            res.render('produtos/lista');
+            res.redirect('/produtos');
         });
     })
 };
