@@ -1,4 +1,14 @@
 module.exports = function (app) {
+    app.get('/', function(req, res) {
+        var conn = app.infra.connectionFactory();
+
+        var produtosDAO = new app.infra.ProdutosDAO(conn);
+        produtosDAO.listar(function (err, result) {
+            res.render('home/index', {livros: result});
+        });
+        conn.end();
+    });
+
     app.get('/produtos', function (req, res, next) {
         var conn = app.infra.connectionFactory();
 
@@ -34,7 +44,6 @@ module.exports = function (app) {
 
         var errors = req.validationErrors();
         if (errors) {
-            console.log('Form não preenchido corretamente');
             res.format({
                 html: function() {
                     res.status(400).render('produtos/form', {errosValidacao: errors, produto: produto});
