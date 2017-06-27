@@ -18,5 +18,18 @@ module.exports = function() {
         .then('infra')
         .into(app);
 
+    app.use(function(req, res, next) {
+        res.status(404).render('erros/404');
+        next();
+    });
+
+    app.use(function(err, req, res, next) {
+        if (process.env.NODE_ENV.indexOf('production') > -1) {
+            res.status(500).render('erros/500');
+            return;
+        }
+        next(err);
+    });
+
     return app;
 };
