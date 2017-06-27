@@ -3,6 +3,16 @@ var request = require('supertest')(app);
 
 describe('#ProdutosController', function () {
 
+    beforeEach(function(done) {
+        var conn = app.infra.connectionFactory();
+
+        conn.query('delete from livro', function(err) {
+            if (!err) {
+                done();
+            }
+        });
+    });
+
     it('#lista como json', function (done) {
         request
             .get('/produtos')

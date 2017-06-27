@@ -1,11 +1,12 @@
 module.exports = function (app) {
-    app.get('/produtos', function (req, res) {
+    app.get('/produtos', function (req, res, next) {
         var conn = app.infra.connectionFactory();
 
         var produtosDAO = new app.infra.ProdutosDAO(conn);
         produtosDAO.listar(function (err, result) {
             if (err) {
                 console.log(err);
+                return next(err);
             }
             res.format({
                 html: function() {
