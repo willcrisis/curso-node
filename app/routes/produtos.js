@@ -7,7 +7,15 @@ module.exports = function (app) {
             if (err) {
                 console.log(err);
             }
-            res.render('produtos/lista', {lista: result});
+            res.format({
+                html: function() {
+                    res.render('produtos/lista', {lista: result});
+                },
+                json: function() {
+                    res.json(result);
+                }
+            });
+
         });
 
         conn.end();
