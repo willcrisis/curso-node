@@ -22,11 +22,21 @@ module.exports = function (app) {
     });
 
     app.get('/produtos/novo', function(req, res) {
-        res.render('produtos/form');
+        res.render('produtos/form', {errosValidacao: {}});
     });
 
     app.post('/produtos', function(req, res) {
         var produto = req.body;
+
+        req.assert('titulo', 'O Título é obrigatório').notEmpty();
+        req.assert('valor', 'O Valor está em formato inválido').isFloat();
+
+        var errors = req.validationErrors();
+        if (errors) {
+            console.log('Form não preenchido corretamente');
+            res.render('produtos/form', {errosValidacao: errors});
+            return;
+        }
 
         var conn = app.infra.connectionFactory();
         var produtosDAO = new app.infra.ProdutosDAO(conn);
