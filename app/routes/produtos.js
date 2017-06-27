@@ -34,7 +34,15 @@ module.exports = function (app) {
         var errors = req.validationErrors();
         if (errors) {
             console.log('Form não preenchido corretamente');
-            res.render('produtos/form', {errosValidacao: errors, produto: produto});
+            res.format({
+                html: function() {
+                    res.render('produtos/form', {errosValidacao: errors, produto: produto});
+                },
+                json: function() {
+                    res.status(400).json(errors);
+                }
+            });
+
             return;
         }
 

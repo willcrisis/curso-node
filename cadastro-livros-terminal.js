@@ -19,7 +19,7 @@ var client = http.request(config,function(res){
 });
 
 var produto = {
-    titulo: 'Incluindo via JSON',
+    titulo: '',
     descricao: 'Teste de inclusão',
     valor: '100.00'
 };
