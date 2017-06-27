@@ -2,7 +2,6 @@ var express = require('express');
 var load = require('express-load');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
-var socketIo = require('socket.io');
 
 module.exports = function() {
     var app = express();
