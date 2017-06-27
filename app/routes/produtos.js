@@ -22,7 +22,7 @@ module.exports = function (app) {
     });
 
     app.get('/produtos/novo', function(req, res) {
-        res.render('produtos/form', {errosValidacao: {}});
+        res.render('produtos/form', {errosValidacao: {}, produto: {}});
     });
 
     app.post('/produtos', function(req, res) {
@@ -34,7 +34,7 @@ module.exports = function (app) {
         var errors = req.validationErrors();
         if (errors) {
             console.log('Form não preenchido corretamente');
-            res.render('produtos/form', {errosValidacao: errors});
+            res.render('produtos/form', {errosValidacao: errors, produto: produto});
             return;
         }
 
